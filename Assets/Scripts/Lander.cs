@@ -5,10 +5,14 @@ using UnityEngine.InputSystem;
 
 public class Lander : MonoBehaviour
 {
+
+    public static Lander Instance { get; private set; }
+
     public event EventHandler onUpForce;
     public event EventHandler onRightForce;
     public event EventHandler onLeftForce;
     public event EventHandler onBeforeForce;
+    public event EventHandler OnCoinPickup;
     private Rigidbody2D landerRigidBody2D;
     private float fuelAmount = 10f;
     private void Awake()
@@ -24,7 +28,6 @@ public class Lander : MonoBehaviour
     {
         onBeforeForce.Invoke(this, EventArgs.Empty);
 
-        Debug.Log(fuelAmount);
         if (fuelAmount <= 0f)
         {
             return;
@@ -105,13 +108,17 @@ public class Lander : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision2D)
     {
-        Debug.Log("check here");
         if (collision2D.gameObject.TryGetComponent(out FuelPickup fuelPickup))
         {
-            Debug.Log("charged");
             float addFuelAmount = 10f;
             fuelAmount += addFuelAmount;
             fuelPickup.DestroySelf();
+        }
+
+        if (collision2D.gameObject.TryGetComponent(out CoinPickup coinPickup))
+        {
+            OnCoinPickup.Invoke(this, EventArgs.Empty);
+            coinPickup.DestroySelf();
         }
     }
 
