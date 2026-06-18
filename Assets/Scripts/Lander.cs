@@ -13,10 +13,30 @@ public class Lander : MonoBehaviour
     public event EventHandler onLeftForce;
     public event EventHandler onBeforeForce;
     public event EventHandler OnCoinPickup;
+    public event EventHandler<OnLandedEventArgs> OnLanded;
+    public class OnLandedEventArgs : EventArgs
+    {
+        public int score;
+        public LandingType landingType;
+        public float dotVector;
+        public float landingSpeed;
+        public float scoreMultiplier;
+    }
+
+    public enum LandingType
+    {
+        Success,
+        WrongLandingArea,
+        TooSteepAngle,
+        TooFastLanding
+    }
     private Rigidbody2D landerRigidBody2D;
-    private float fuelAmount = 10f;
+    private float fuelAmount;
+    private float fuelAmountMax = 10f;
     private void Awake()
     {
+        Instance = this;
+        fuelAmount = fuelAmountMax;
         landerRigidBody2D = GetComponent<Rigidbody2D>();
         // Vector2.Dot(new Vector2(0, 1), new Vector2(0, 1));
         // Vector2.Dot(new Vector2(0, 1), new Vector2(.5f, .5f));
@@ -67,6 +87,14 @@ public class Lander : MonoBehaviour
         if (!collision2D.gameObject.TryGetComponent(out LandingPad landingPad))
         {
             Debug.Log("crashed on the terrain");
+            OnLanded.Invoke(this, new OnLandedEventArgs
+            {
+                score = 0,
+                landingType = LandingType.WrongLandingArea,
+                dotVector = 0f,
+                landingSpeed = 0f,
+                scoreMultiplier = 0
+            });
             return;
         }
         float sofLandingVelocityMagnitude = 4f;
@@ -74,6 +102,14 @@ public class Lander : MonoBehaviour
         if (relativeVelocityMAagnitude > sofLandingVelocityMagnitude)
         {
             Debug.Log("too hard");
+            OnLanded.Invoke(this, new OnLandedEventArgs
+            {
+                score = 0,
+                landingType = LandingType.TooFastLanding,
+                dotVector = 0f,
+                landingSpeed = relativeVelocityMAagnitude,
+                scoreMultiplier = 0
+            });
             return;
         }
         float dotVector = Vector2.Dot(Vector2.up, transform.up);
@@ -81,9 +117,17 @@ public class Lander : MonoBehaviour
         if (dotVector < minDotVector)
         {
             Debug.Log("landed on steep angle");
+            OnLanded.Invoke(this, new OnLandedEventArgs
+            {
+                score = 0,
+                landingType = LandingType.TooSteepAngle,
+                dotVector = dotVector,
+                landingSpeed = relativeVelocityMAagnitude,
+                scoreMultiplier = 0
+            });
             return;
         }
-        Debug.Log(dotVector);
+
         Debug.Log("soft landing");
 
         float maxScoreAmountLandingAngle = 100;
@@ -101,8 +145,16 @@ public class Lander : MonoBehaviour
 
         int score = Mathf.RoundToInt((landingAngleScore + landingSpedScore) * landingPad.GetScoreMultiplier());
 
-
         Debug.Log("score: " + score);
+
+        OnLanded.Invoke(this, new OnLandedEventArgs
+        {
+            score = score,
+            landingType = LandingType.Success,
+            dotVector = dotVector,
+            landingSpeed = relativeVelocityMAagnitude,
+            scoreMultiplier = landingPad.GetScoreMultiplier()
+        });
 
     }
 
@@ -112,6 +164,10 @@ public class Lander : MonoBehaviour
         {
             float addFuelAmount = 10f;
             fuelAmount += addFuelAmount;
+            if (fuelAmount >= fuelAmountMax)
+            {
+                fuelAmount = fuelAmountMax;
+            }
             fuelPickup.DestroySelf();
         }
 
@@ -126,6 +182,26 @@ public class Lander : MonoBehaviour
     {
         float fuelConsumptionAmount = 1f;
         fuelAmount -= fuelConsumptionAmount * Time.deltaTime;
+    }
+
+    public float GetSpeedX()
+    {
+        return landerRigidBody2D.linearVelocityX;
+    }
+
+    public float GetSpeedY()
+    {
+        return landerRigidBody2D.linearVelocityY;
+    }
+
+    public float GetFuel()
+    {
+        return fuelAmount;
+    }
+
+    public float GetFuelAmountNormalized()
+    {
+        return fuelAmount / fuelAmountMax;
     }
 
 }
