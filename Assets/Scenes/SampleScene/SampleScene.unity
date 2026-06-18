@@ -3410,7 +3410,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 1
   m_AngularDamping: 5
-  m_GravityScale: 0.7
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -3514,6 +3514,7 @@ MonoBehaviour:
   leftThrustParticleSystem: {fileID: 1788686094}
   middleThrustParticleSystem: {fileID: 761995872}
   rightThrustParticleSystem: {fileID: 1998808306}
+  landerExplosionVfx: {fileID: 570857052369263401, guid: 6417a7f60d478884997c6c9ac491d28a, type: 3}
 --- !u!1001 &3058714912895540111
 PrefabInstance:
   m_ObjectHideFlags: 0

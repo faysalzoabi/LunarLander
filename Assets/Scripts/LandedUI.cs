@@ -25,8 +25,8 @@ public class LandedUI : MonoBehaviour
         }
 
         statsTextMesh.text =
-                Mathf.Round(e.landingSpeed) + "\n" +
-                Mathf.Round(e.landingSpeed) + "\n" +
+                Mathf.Round(e.landingSpeed * 2f) + "\n" +
+                Mathf.Round(e.landingSpeed * 100f) + "\n" +
                 "x" + e.scoreMultiplier + "\n" +
                 e.score;
 
