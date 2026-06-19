@@ -1,14 +1,17 @@
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     // [SerializeField] private Lander lander;
 
+
     public static GameManager Instance { get; private set; }
 
-    [SerializeField] private int levelNumber;
+    private static int levelNumber = 1;
     [SerializeField] private List<GameLevel> gameLevelList;
+    [SerializeField] private CinemachineCamera cinemachineCamera;
     private int score;
     private float time;
     private bool isTimerActive;
@@ -30,6 +33,12 @@ public class GameManager : MonoBehaviour
     private void Lander_OnStateChanged(object sender, Lander.OnStateChangedEventArgs e)
     {
         isTimerActive = e.state == Lander.State.Normal;
+
+        if (e.state == Lander.State.Normal)
+        {
+            cinemachineCamera.Target.TrackingTarget = Lander.Instance.transform;
+            CinemachineCameraZoom.Instance.SetNormalOrthographicSize();
+        }
     }
 
     private void Update()
@@ -50,6 +59,8 @@ public class GameManager : MonoBehaviour
             {
                 GameLevel spawnedGameLevel = Instantiate(gameLevel, Vector3.zero, Quaternion.identity);
                 Lander.Instance.transform.position = spawnedGameLevel.GetLanderStartPosition();
+                cinemachineCamera.Target.TrackingTarget = spawnedGameLevel.GetCameraStartTargetTransform();
+                CinemachineCameraZoom.Instance.SetTargetOrthographicSize(spawnedGameLevel.GetZoomedOutOrthographicSize());
             }
         }
     }
@@ -78,4 +89,23 @@ public class GameManager : MonoBehaviour
     {
         return time;
     }
+
+    public void GoToNextLevel()
+    {
+        levelNumber++;
+        SceneManager.LoadScene(0);
+    }
+
+    public void RetryLevel()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public int GetLevelNumber()
+    {
+        return levelNumber;
+    }
+
+
+
 }

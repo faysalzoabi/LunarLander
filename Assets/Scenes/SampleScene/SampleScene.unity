@@ -280,7 +280,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 13
+    OrthographicSize: 25
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -404,7 +404,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 92, y: 0}
+  m_AnchoredPosition: {x: 91.20001, y: -54}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &305755239
@@ -577,9 +577,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3200f23d4337498caeb127c5264e286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelNumber: 1
   gameLevelList:
   - {fileID: 5725457303640196085, guid: b34fdd863f08583449579dbf36f282ee, type: 3}
+  - {fileID: 5725457303640196085, guid: 4f3e2f9994f944b5ab03ae7d52cf6b30, type: 3}
+  cinemachineCamera: {fileID: 166349419}
 --- !u!4 &429097635
 Transform:
   m_ObjectHideFlags: 0
@@ -590,6 +591,51 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.34, y: 1.17, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &442587630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 442587632}
+  - component: {fileID: 442587631}
+  m_Layer: 0
+  m_Name: CinemachineCameraZoom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &442587631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442587630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e80ce72caa26740a1a5844282a16b062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cinemachineCamera: {fileID: 166349419}
+--- !u!4 &442587632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442587630}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -807,8 +853,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.9760001, y: 1}
-  m_AnchoredPosition: {x: 4.7032013, y: -0.000015258789}
-  m_SizeDelta: {x: 9.4066, y: -0.000030518}
+  m_AnchoredPosition: {x: 4.7032013, y: -25.05832}
+  m_SizeDelta: {x: 9.4066, y: 50.1165}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &488609051
 MonoBehaviour:
@@ -980,7 +1026,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score
+  m_text: 'Level
+
+    Score
 
     Time
 
@@ -1103,7 +1151,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 77.444626, y: -104.91396}
+  m_AnchoredPosition: {x: 69.79997, y: -159.6}
   m_SizeDelta: {x: 168.1988, y: 30.0544}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &629312789
@@ -1186,8 +1234,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 231.32483, y: -176.44263}
-  m_SizeDelta: {x: 391.94, y: 280.7814}
+  m_AnchoredPosition: {x: 231.32489, y: -175.68329}
+  m_SizeDelta: {x: 391.94, y: 279.2627}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &662924310
 MonoBehaviour:
@@ -1298,7 +1346,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 92.7, y: 0.6}
+  m_AnchoredPosition: {x: 91.90001, y: -53.4}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &702665340
@@ -1490,7 +1538,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '0
+  m_text: '1
+
+    0
 
     0
 
@@ -1975,7 +2025,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 90.7, y: -58.2}
+  m_AnchoredPosition: {x: 90.7, y: -111.4}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1255314324
@@ -2484,7 +2534,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 90.7, y: -57.5}
+  m_AnchoredPosition: {x: 90.7, y: -110.69995}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1745212401
@@ -2598,7 +2648,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 13
+  orthographic size: 25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2739,7 +2789,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 77.444626, y: -104.91396}
+  m_AnchoredPosition: {x: 69.8, y: -159.6}
   m_SizeDelta: {x: 168.1988, y: 30.0544}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1923079855
@@ -2836,6 +2886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   titleTextMesh: {fileID: 1606152165}
   statsTextMesh: {fileID: 1231127507}
+  nextButtonTextMesh: {fileID: 1668296172}
   nextButton: {fileID: 467456766}
 --- !u!4 &1998808304 stripped
 Transform:
@@ -2999,3 +3050,4 @@ SceneRoots:
   - {fileID: 429097635}
   - {fileID: 348511334}
   - {fileID: 1252959253}
+  - {fileID: 442587632}
