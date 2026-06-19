@@ -63,9 +63,16 @@ public class Lander : MonoBehaviour
         {
             default:
             case State.WaitingToStart:
-                if (Keyboard.current.upArrowKey.isPressed ||
-                        Keyboard.current.leftArrowKey.isPressed ||
-                        Keyboard.current.rightArrowKey.isPressed)
+                // if (Keyboard.current.upArrowKey.isPressed ||
+                //         Keyboard.current.leftArrowKey.isPressed ||
+                //         Keyboard.current.rightArrowKey.isPressed)
+                // {
+                //     landerRigidBody2D.gravityScale = GRAVITY_NORMAL;
+                //     SetState(State.Normal);
+                // }
+                if (GameInput.Instance.IsUpActionPressed() ||
+                    GameInput.Instance.IsLeftActionPressed() ||
+                    GameInput.Instance.IsRightActionPressed())
                 {
                     landerRigidBody2D.gravityScale = GRAVITY_NORMAL;
                     SetState(State.Normal);
@@ -77,20 +84,20 @@ public class Lander : MonoBehaviour
                     return;
                 }
 
-                if (Keyboard.current.upArrowKey.isPressed ||
-                    Keyboard.current.leftArrowKey.isPressed ||
-                    Keyboard.current.rightArrowKey.isPressed)
+                if (GameInput.Instance.IsUpActionPressed() ||
+                    GameInput.Instance.IsLeftActionPressed() ||
+                    GameInput.Instance.IsRightActionPressed())
                 {
                     ConsumeFuel();
                 }
-                if (Keyboard.current.upArrowKey.isPressed)
+                if (GameInput.Instance.IsUpActionPressed())
                 {
                     float force = 700f;
                     landerRigidBody2D.AddForce(force * transform.up * Time.deltaTime);
                     onUpForce?.Invoke(this, EventArgs.Empty);
                 }
 
-                if (Keyboard.current.leftArrowKey.isPressed)
+                if (GameInput.Instance.IsLeftActionPressed())
                 {
                     float turnSpeed = +100f;
                     landerRigidBody2D.AddTorque(turnSpeed * Time.deltaTime);
@@ -98,7 +105,7 @@ public class Lander : MonoBehaviour
 
                 }
 
-                if (Keyboard.current.rightArrowKey.isPressed)
+                if (GameInput.Instance.IsRightActionPressed())
                 {
                     float turnSpeed = -100f;
                     landerRigidBody2D.AddTorque(turnSpeed * Time.deltaTime);
